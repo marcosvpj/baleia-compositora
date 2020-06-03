@@ -1,0 +1,15 @@
+version: '3'
+services:
+  redis:
+    image: "redis:alpine"
+    container_name: "rredis"
+  web:
+    # image: servico-p:latest
+    build: servico-p/.
+    depends_on:
+        - 'redis'
+    ports:
+      - "5000:5000"
+    environment:
+        - REDIS_HOST=redis
+        - REDIS_PORT=6379
