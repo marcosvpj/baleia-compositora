@@ -1,5 +1,7 @@
 # Baleia compositora
 
+![Docker Image CI](https://github.com/marcosvpj/baleia-compositora/workflows/Docker%20Image%20CI/badge.svg)
+
 
 ## Explicar o problema
 ## Resolver sem utilizar docker compose (exercicio)
