@@ -18,11 +18,9 @@ Mas antes, precisamos saber o que elas fazem!
   * GET `http://<host>:3000/<chave>`: nos retorna um json válido que esta salvo nessa chave
 
 
-* [downloader](/downloader): um script Python que ciclicamente faz pedidos GET no servidor, para pegar o conteudo nas chaves e baixar como arquivos json numa pasta. deve ser invocado da seguinte maneira:
-```
-python main.py <servidor para se consultar> \
-               <base do nome do arquivo>
-```
+* [downloader](/downloader): um script Python que ciclicamente faz pedidos GET no servidor, para pegar o conteudo nas chaves e baixar como arquivos json numa pasta. deve ser invocado simplesmente com `python main.py`, porém você deve ter as seguintes variáveis de ambiente definidas:
+  * `SERVIDOR`: endereço do servidor que vai se consultar
+  * `NOME_BASE`: base do nome dos arquivos para baixar do servidor
 
 * [uploader](/uploader): um binário, que varre os conteudos de certa pasta, lendo arquivos json com certo nome, incrementa o valor numa certa chave desses objetos, e realiza pedidos PUT no servidor, atualizando o dado que esta lá. deve ser invocado da seguinte maneira:
 ```

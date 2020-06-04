@@ -44,6 +44,8 @@ baleia-downloader: build-downloader
 ifeq ($(shell docker ps | grep baleia-downloader),)
 	docker run --rm -d \
 		-v $(PWD)/data:/out \
+		-e SERVIDOR='http://baleia-server:3000' \
+      	-e NOME_BASE=nome \
 		--network baleia-net \
 		--name baleia-downloader \
 		baleia-downloader \

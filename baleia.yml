@@ -40,6 +40,6 @@ services:
     container_name: baleia-downloader
     volumes:
       - "./data:/out"
-    command:
-      - 'http://baleia-server:3000'
-      - nome
+    environment:
+      - 'SERVIDOR=http://baleia-server:3000'
+      - NOME_BASE=nome
