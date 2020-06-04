@@ -35,7 +35,91 @@ Acredite, é um exercício válido, e vai fazer você valorizar mais o que o com
 
 ## Docker compose
 
+Alguns comandos importantes do docker compose:
 
+### Up
+```bash
+docker-compose up
+```
+
+Faz a magica funcionar. Utiliza como base o arquivo `docker-compose.yml`.
+
+Tambem é possivel definir um arquivo diferente usando o parametro -f ou --file
+
+```bash
+docker-compose --file baleia.yml up
+```
+
+### Ps
+```bash
+docker-compose ps
+```
+Parecido com o docker ps, mas mostra apenas os conteiners definidos no arquivo `docker-compose.yml`.
+
+Caso tenha sido informado um arquivo diferente no momento de iniciar, é preciso informar o mesmo arquivo novamente.
+
+```bash
+docker-compose --file baleia.yml ps
+```
+
+### Stop
+
+```bash
+docker-compose stop
+```
+
+Para a execução dos containers sem perder o estado.
+Caso tenha sido informado um arquivo diferente no momento de iniciar, é preciso informar o mesmo arquivo novamente.
+
+```bash
+docker-compose --file baleia.yml stop
+```
+
+### Start
+```bash
+docker-compose start
+```
+
+Inicia os containers parados.
+
+Caso tenha sido informado um arquivo diferente no momento de iniciar, é preciso informar o mesmo arquivo novamente.
+
+```bash
+docker-compose --file baleia.yml start
+```
+
+### Log
+```bash
+docker-compose log
+```
+
+Com ele podemos ver os logs dos containers ativos.
+
+É possivel informar o container desejado utilizando apenas o nome do servico.
+
+
+```bash
+docker-compose log web
+```
+
+Também aceita o parametro `-f` para ficar escutando o log em tempo real.
+
+```bash
+docker-compose log -f web
+```
+
+### Down
+```bash
+docker-compose down
+```
+
+Para a execução dos containers e apaga as redes e volumes criados, limpando o estado da aplicação.
+
+Caso tenha sido informado um arquivo diferente no momento de iniciar, é preciso informar o mesmo arquivo novamente.
+
+```bash
+docker-compose --file baleia.yml down
+```
 
 ### Diferentes versões
 
@@ -87,33 +171,6 @@ services:
 ```sh
 docker-compose up
 ```
-
-Alguns outros comandos:
-
-#### docker-compose ps
-
-```
-           Name                         Command               State           Ports         
---------------------------------------------------------------------------------------------
-baleia-compositora_redis_1   docker-entrypoint.sh redis ...   Up      6379/tcp              
-baleia-compositora_web_1     flask run                        Up      0.0.0.0:5000->5000/tcp
-```
-
-
-#### docker-compose stop
-
-Para o funcionamento dos containers, mas mantem o estado
-
-#### docker-compose down
-
-Interrompe os containers, e remove os volumes e as redes.
-
-#### docker-compose log
-
-```bash
-docker-compose log <nome-do-container>
-```
-
 
 
 ## Rede (exercicio)
