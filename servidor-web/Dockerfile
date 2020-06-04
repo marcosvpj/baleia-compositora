@@ -15,4 +15,4 @@ COPY . .
 
 CMD ["flask", "run"]
 
-# docker run -p 5000 servico-p
+# docker run -p 5000 servidor-web

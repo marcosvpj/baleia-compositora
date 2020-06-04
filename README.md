@@ -163,7 +163,7 @@ Utilizando uma imagem já existente com a opção `image` ou fazendo o build de 
 version: '3'
 services:
   web:
-    build: servico-p/.
+    build: servidor-web/.
   redis:
     image: "redis:alpine"
 ```
@@ -190,7 +190,7 @@ Na documentação é possivel encontrar outros formatos de mapeamento aceitos: h
 version: '3'
 services:
   web:
-    image: servico-p:latest
+    image: servidor-web:latest
     ports:
       - "5050:5000"
   redis:
@@ -211,7 +211,7 @@ services:
   redis:
     image: "redis:alpine"
   web:
-    build: servico-p/.
+    build: servidor-web/.
     ports:
       - "5000:5000"
     environment:
@@ -233,7 +233,7 @@ services:
   redis:
     image: "redis:alpine"
   web:
-    build: servico-p/.
+    build: servidor-web/.
     depends_on:
         - 'redis'
     ports:
@@ -266,7 +266,7 @@ services:
     volumes:
         - arquivos:/files
   web:
-    build: servico-p/.
+    build: servidor-web/.
     depends_on:
         - 'redis'
     ports:
@@ -275,13 +275,13 @@ services:
         - REDIS_HOST=redis
         - REDIS_PORT=6379
     volumes:
-        - ./servico-p:/p
+        - ./servidor-web:/p
         - arquivos:/files
 volumes:
     arquivos:
 ```
 
-Nesse exemplo é feito o compartilhamento entre arquivos da maquina host da pasta `servico-p` com a pasta no container `/p`.
+Nesse exemplo é feito o compartilhamento entre arquivos da maquina host da pasta `servidor-web` com a pasta no container `/p`.
 
 E tambem foi criado um volume chamado `arquivos` para compartilhar arquivos entre os dois containers na pasta `/files`
 
