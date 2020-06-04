@@ -29,4 +29,5 @@ services:
     volumes:
       - "./data:/out"
     environment:
+      - 'SERVIDOR=http://baleia-server:3000'
       - NOME_BASE=nome
