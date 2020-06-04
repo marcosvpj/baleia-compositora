@@ -1,0 +1,45 @@
+version: '3'
+services:
+
+  server:
+    ports:
+      - "3000:3000"
+    build: ./server
+    image: baleia-server
+    container_name: baleia-server
+
+  populate:
+    image: alpine
+    volumes:
+      - "./data:/out"
+      - "./populate.sh:/populate.sh"
+    entrypoint: /bin/sh -c
+    command: /populate.sh
+
+  uploader:
+    depends_on:
+      - 'server'
+      - 'populate'
+    build: ./uploader
+    image: baleia-uploader
+    container_name: baleia-uploader
+    volumes:
+      - "./data:/out"
+    command:
+      - 'http://baleia-server:3000'
+      - /out
+      - nome
+      - chave
+
+  downloader:
+    depends_on:
+      - 'uploader'
+      - 'populate'
+    build: ./downloader
+    image: baleia-downloader
+    container_name: baleia-downloader
+    volumes:
+      - "./data:/out"
+    command:
+      - 'http://baleia-server:3000'
+      - nome

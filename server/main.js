@@ -23,7 +23,6 @@ app.put('/:key', function(req, res) {
     const payload = req.body
     console.log(`Setting data in ${key}: ${JSON.stringify(payload)}`)
     datum[key] = payload
-    console.log(`Current datum: ${JSON.stringify(datum, null, 2)}`)
     res.sendStatus(201)
 })
 
