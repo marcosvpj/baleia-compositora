@@ -4,7 +4,34 @@
 
 
 ## Explicar o problema
+
+Temos 3 aplicações em nossas mãos, e queremos que todas elas rodem e possam interagir como esperado.
+
+Para isso, poderíamos [rodar todas elas diretamente](https://pt.wikipedia.org/wiki/Luzia_(f%C3%B3ssil) "assim como fazia nossa cara Luzia"), mas não é o que faremos hoje.
+
+Gostaríamos na verdade de conteinerizar as aplicaçoes nas pastas `server`, `uploader` e `downloader`, e usar os mecanismos de rede e volumes do docker para conectá-las.
+
+Mas antes, precisamos saber o que elas fazem!
+
+* [server](/server): um servidor HTTP feito com Node.js e JavaScript. Este funcionará como a nossa 'database', pois ele se comporta como um dicionário, e provê as seguintes funcionalidades:
+  * <abbr title="num pedido do tipo PUT é esperado que se envie algum dado no corpo da mensagem">PUT</abbr> `http://<host>:3000/<chave>`: salva o conteúdo do corpo da mensagem, se for um json válido, sob o nome chave, para depois poder ser lido usando...
+  * GET `http://<host>:3000/<chave>`: nos retorna um json válido que esta salvo nessa chave
+
+* [downloader](/downloader): um script Python que ciclicamente faz pedidos GET no servidor, para pegar o conteudo nas chaves e baixar como arquivos json numa pasta
+
+* [uploader](/uploader): um binário, que varre os conteudos de certa paste, lendo arquivos json com certo nome, incrementa o valor numa certa chave desses objetos, e realiza pedidos PUT no servidor, atualizando o dado que esta lá
+
+Então precisamos que o [server](/server) esteja disponível apra pedidos de ambos [uploader](/uploader) e [downloader](/downloader), e que estes dois possam ler e escrever arquivos em uma pasta comum. Você pode usar o script [populate.sh](/populate.sh) para popular esta pasta com um estado inicial válido.
+
+Este pequeno sistema pode ser considerado em funcionamento se:
+* a pasta [data](/data "se ela não existir, basta criá-la") contendo os arquivos `nome$i.json`, com `i` de 0 a 9
+* o conteúdo de cada arquivo for no formato `{"chave": N}`, com N crescendo o tempo todo!
+
 ## Resolver sem utilizar docker compose (exercicio)
+
+Consegue dockerizar as aplicações e coordená-las para rodar corretamente sem usar `docker-compose`?
+
+Acredite, é um exercício válido, e vai fazer você valorizar mais o que o compose tem a oferecer...
 
 ## Docker compose
 
