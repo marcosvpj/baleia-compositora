@@ -4,6 +4,19 @@
 
 
 ## Explicar o problema
+
+Temos 3 aplicações em nossas mãos, e queremos que todas elas rodem e possam interagir como esperado.
+
+Para isso, poderíamos [rodar todas elas diretamente](https://pt.wikipedia.org/wiki/Luzia_(f%C3%B3ssil) "assim como fazia nossa cara Luzia"), mas não é o que faremos hoje.
+
+Gostaríamos na verdade de conteinerizar as aplicaçoes nas pastas `server`, `uploader` e `downloader`, e usar os mecanismos de rede e volumes do docker para conectá-las.
+
+Mas antes, precisamos saber o que elas fazem!
+
+* [server](/server): um servidor HTTP feito com Node.js e JavaScript. Este funcionará como a nossa 'database', pois ele se comporta como um dicionário, e provê as seguintes funcionalidades:
+  * <abbr title="num pedido do tipo PUT é esperado que se envie algum dado no corpo da mensagem">PUT</abbr> `http://<host>:3000/<chave>`: salva o conteúdo do corpo da mensagem, se for um json válido, sob o nome chave, para depois poder ser lido usando...
+  * GET `http://<host>:3000/<chave>`: nos retorna um json válido que está salvo nessa chave
+
 ## Resolver sem utilizar docker compose (exercicio)
 
 ## Docker compose
