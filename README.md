@@ -4,8 +4,11 @@
 ## Explicar o problema
 ## Resolver sem utilizar docker compose (exercicio)
 
-## Introdução dos pontos fortes do compose
-### Versões dos arquivos
+## Docker compose
+
+
+
+### Diferentes versões
 
 Arquivos do docker-compose possuem 3 diferentes versões, que não compativeis entre si.
 
@@ -159,5 +162,60 @@ Um porém, só é garantido a ordem que os containers sobem, mas não que o serv
 Mais informações em: https://docs.docker.com/compose/startup-order/
 
 ## Compartilhamento de volume
+
+Dentro de um serviço podemos definir os volumes que o serviço vai tulizar.
+Temos duas opções de como definir os volumes, um modo resumido e um mais verboso.
+
+Modo resumido segue o formatto `[SOURCE:]TARGET[:MODE]`
+
+`SOURCE` pode ser um local na maquina host ou um volume pré definido. Caso não seja informado sera criado um volume.
+`TARGET` é o cominho no container
+`MODE` é o modo de acesso, podendo ser `ro` para somente leitura ou `rw` leitura e escrita
+
+```yml
+version: '3'
+services:
+  redis:
+    image: "redis:alpine"
+    volumes:
+        - arquivos:/files
+  web:
+    build: servico-p/.
+    depends_on:
+        - 'redis'
+    ports:
+      - "5000:5000"
+    environment:
+        - REDIS_HOST=redis
+        - REDIS_PORT=6379
+    volumes:
+        - ./servico-p:/p
+        - arquivos:/files
+volumes:
+    arquivos:
+```
+
+Nesse exemplo é feito o compartilhamento entre arquivos da maquina host da pasta `servico-p` com a pasta no container `/p`.
+
+E tambem foi criado um volume chamado `arquivos` para compartilhar arquivos entre os dois containers na pasta `/files`
+
+Podemos confirmar entrando nos containers e criando arquivos lá
+
+```bash
+docker-compose ps
+
+docker-compose exec web sh
+echo 'Helow' > /files/oie.txt
+cat /files/oie.txt
+exit
+
+docker-compose exec redis sh
+ls /files/
+cat /files/oie.txt
+exit
+```
+
+https://docs.docker.com/compose/compose-file/#volumes
+
 ### container com container (exercicio)
 ### host com container (exercicio)
