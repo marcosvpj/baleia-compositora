@@ -54,7 +54,7 @@ docker-compose --file baleia.yml up
 ```bash
 docker-compose ps
 ```
-Parecido com o docker ps, mas mostra apenas os conteiners definidos no arquivo `docker-compose.yml`.
+Parecido com o `docker ps`, mas mostra apenas os conteiners definidos no arquivo `docker-compose.yml`.
 
 Caso tenha sido informado um arquivo diferente no momento de iniciar, é preciso informar o mesmo arquivo novamente.
 
@@ -68,7 +68,7 @@ docker-compose --file baleia.yml ps
 docker-compose stop
 ```
 
-Para a execução dos containers sem perder o estado.
+Para a execução dos conteiners sem perder o estado.
 Caso tenha sido informado um arquivo diferente no momento de iniciar, é preciso informar o mesmo arquivo novamente.
 
 ```bash
@@ -80,7 +80,7 @@ docker-compose --file baleia.yml stop
 docker-compose start
 ```
 
-Inicia os containers parados.
+Inicia os conteiners parados.
 
 Caso tenha sido informado um arquivo diferente no momento de iniciar, é preciso informar o mesmo arquivo novamente.
 
@@ -93,7 +93,7 @@ docker-compose --file baleia.yml start
 docker-compose log
 ```
 
-Com ele podemos ver os logs dos containers ativos.
+Com ele podemos ver os logs dos conteiners ativos.
 
 É possivel informar o container desejado utilizando apenas o nome do servico.
 
@@ -113,7 +113,7 @@ docker-compose log -f web
 docker-compose down
 ```
 
-Para a execução dos containers e apaga as redes e volumes criados, limpando o estado da aplicação.
+Para a execução dos conteiners e apaga as redes e volumes criados, limpando o estado da aplicação.
 
 Caso tenha sido informado um arquivo diferente no momento de iniciar, é preciso informar o mesmo arquivo novamente.
 
@@ -243,7 +243,7 @@ services:
         - REDIS_PORT=6379
 ```
 
-Um porém, só é garantido a ordem que os containers sobem, mas não que o serviço dentro dele esteja efetivemente rodando.
+Um porém, só é garantido a ordem que os conteiners sobem, mas não que o serviço dentro dele esteja efetivemente rodando.
 
 Mais informações em: https://docs.docker.com/compose/startup-order/
 
@@ -283,9 +283,9 @@ volumes:
 
 Nesse exemplo é feito o compartilhamento entre arquivos da maquina host da pasta `servidor-web` com a pasta no container `/p`.
 
-E tambem foi criado um volume chamado `arquivos` para compartilhar arquivos entre os dois containers na pasta `/files`
+E tambem foi criado um volume chamado `arquivos` para compartilhar arquivos entre os dois conteiners na pasta `/files`
 
-Podemos confirmar entrando nos containers e criando arquivos lá
+Podemos confirmar entrando nos conteiners e criando arquivos lá
 
 ```bash
 docker-compose ps
