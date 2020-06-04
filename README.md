@@ -1,11 +1,11 @@
-# baleia-compositora
+# Baleia compositora
 
 
-# Explicar o problema
-# Resolver sem utilizar docker compose (exercicio)
+## Explicar o problema
+## Resolver sem utilizar docker compose (exercicio)
 
-# Introdução dos pontos fortes do compose
-## Versões dos arquivos
+## Introdução dos pontos fortes do compose
+### Versões dos arquivos
 
 Arquivos do docker-compose possuem 3 diferentes versões, que não compativeis entre si.
 
@@ -13,7 +13,7 @@ Se não for especificado a versão, utilizando o `version: 'x.x'` o compose cons
 Na mesma linha, se for informado apenas o primeiro digito, o decimal sera considerado 0. Assim `version: '2'` e `version: '2.1'` são equivalentes.
 
 
-# Criar arquivo configuração do docker-compose.yml
+## Criar arquivo configuração do docker-compose.yml
 
 ```yml
 version: '2.0'
@@ -37,7 +37,7 @@ Nesse link tem a lista de todas as configurações disponiveis separadas por ver
 https://docs.docker.com/compose/compose-file/
 
 
-## Build de tudo de uma só vez (Exercicio)
+### Build de tudo de uma só vez (Exercicio)
 
 Podemos fazer de dois modos.
 
@@ -58,30 +58,33 @@ docker-compose up
 
 Alguns outros comandos:
 
-### docker-compose ps
+#### docker-compose ps
 
+```
            Name                         Command               State           Ports         
 --------------------------------------------------------------------------------------------
 baleia-compositora_redis_1   docker-entrypoint.sh redis ...   Up      6379/tcp              
 baleia-compositora_web_1     flask run                        Up      0.0.0.0:5000->5000/tcp
+```
 
-### docker-compose stop
+
+#### docker-compose stop
 
 Para o funcionamento dos containers, mas mantem o estado
 
-### docker-compose down
+#### docker-compose down
 
 Interrompe os containers, e remove os volumes e as redes.
 
-### docker-compose log
+#### docker-compose log
 
-```
+```bash
 docker-compose log <nome-do-container>
 ```
 
 
 
-# Rede (exercicio)
+## Rede (exercicio)
 
 Por padrão compose cria uma rede entre todos os container.
 
@@ -106,7 +109,7 @@ services:
 ```
 
 
-## Variáveis de ambiente (exercicio)
+### Variáveis de ambiente (exercicio)
 
 Chave de configuração `environment`.
 Esse é apenas um dos modos de se fazer. Tambem é possivel utilizar as variaveis ja existentes na maquina host.
@@ -130,7 +133,7 @@ services:
 https://docs.docker.com/compose/environment-variables/
 
 
-## Ordem de execução (exercicio)
+### Ordem de execução (exercicio)
 
 Em alguns casos com varios container vamos precisar que eles iniciem em uma determinada ordem.
 Para garatir isso temos a keyword `depends_on`
@@ -155,6 +158,6 @@ Um porém, só é garantido a ordem que os containers sobem, mas não que o serv
 
 Mais informações em: https://docs.docker.com/compose/startup-order/
 
-# Compartilhamento de volume
-## container com container (exercicio)
-## host com container (exercicio)
+## Compartilhamento de volume
+### container com container (exercicio)
+### host com container (exercicio)
