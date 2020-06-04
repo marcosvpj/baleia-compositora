@@ -30,7 +30,7 @@ Mas antes, precisamos saber o que elas fazem!
        <chave para incrementar>
 ```
 
-Então precisamos que o [server](/server) esteja disponível para pedidos de ambos [uploader](/uploader) e [downloader](/downloader), e que estes dois possam ler e escrever arquivos em uma pasta comum. Você pode usar o script [populate.sh](/populate.sh) para popular esta pasta com um estado inicial válido.
+Então precisamos que o [server](/server) esteja disponível para pedidos de ambos [uploader](/uploader) e [downloader](/downloader), e que estes dois possam ler e escrever arquivos em uma pasta comum.
 
 Este pequeno sistema pode ser considerado em funcionamento se:
 * a pasta [data](/data "se ela não existir, basta criá-la") contendo os arquivos `nome$i.json`, com `i` de 0 a 9

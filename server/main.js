@@ -2,7 +2,19 @@ const express = require('express')
 const app = express()
 const port = 3000
 
-var datum = {on: true}
+var datum = {
+    on: true,
+    nome0: {"chave": 0},
+    nome1: {"chave": 0},
+    nome2: {"chave": 0},
+    nome3: {"chave": 0},
+    nome4: {"chave": 0},
+    nome5: {"chave": 0},
+    nome6: {"chave": 0},
+    nome7: {"chave": 0},
+    nome8: {"chave": 0},
+    nome9: {"chave": 0}
+}
 
 app.use(express.json())
 

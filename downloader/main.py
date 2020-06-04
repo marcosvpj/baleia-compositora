@@ -18,4 +18,3 @@ if __name__ == "__main__":
                         urljoin(environ['SERVIDOR'], name),
                         headers= {'content-type': 'application/json'}
                     ).json()) + '\n')
-
