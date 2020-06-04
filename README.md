@@ -35,7 +35,91 @@ Acredite, é um exercício válido, e vai fazer você valorizar mais o que o com
 
 ## Docker compose
 
+Alguns comandos importantes do docker compose:
 
+### Up
+```bash
+docker-compose up
+```
+
+Faz a magica funcionar. Utiliza como base o arquivo `docker-compose.yml`.
+
+Tambem é possivel definir um arquivo diferente usando o parametro -f ou --file
+
+```bash
+docker-compose --file baleia.yml up
+```
+
+### Ps
+```bash
+docker-compose ps
+```
+Parecido com o `docker ps`, mas mostra apenas os conteiners definidos no arquivo `docker-compose.yml`.
+
+Caso tenha sido informado um arquivo diferente no momento de iniciar, é preciso informar o mesmo arquivo novamente.
+
+```bash
+docker-compose --file baleia.yml ps
+```
+
+### Stop
+
+```bash
+docker-compose stop
+```
+
+Para a execução dos conteiners sem perder o estado.
+Caso tenha sido informado um arquivo diferente no momento de iniciar, é preciso informar o mesmo arquivo novamente.
+
+```bash
+docker-compose --file baleia.yml stop
+```
+
+### Start
+```bash
+docker-compose start
+```
+
+Inicia os conteiners parados.
+
+Caso tenha sido informado um arquivo diferente no momento de iniciar, é preciso informar o mesmo arquivo novamente.
+
+```bash
+docker-compose --file baleia.yml start
+```
+
+### Log
+```bash
+docker-compose log
+```
+
+Com ele podemos ver os logs dos conteiners ativos.
+
+É possivel informar o container desejado utilizando apenas o nome do servico.
+
+
+```bash
+docker-compose log web
+```
+
+Também aceita o parametro `-f` para ficar escutando o log em tempo real.
+
+```bash
+docker-compose log -f web
+```
+
+### Down
+```bash
+docker-compose down
+```
+
+Para a execução dos conteiners e apaga as redes e volumes criados, limpando o estado da aplicação.
+
+Caso tenha sido informado um arquivo diferente no momento de iniciar, é preciso informar o mesmo arquivo novamente.
+
+```bash
+docker-compose --file baleia.yml down
+```
 
 ### Diferentes versões
 
@@ -79,7 +163,7 @@ Utilizando uma imagem já existente com a opção `image` ou fazendo o build de 
 version: '3'
 services:
   web:
-    build: servico-p/.
+    build: servidor-web/.
   redis:
     image: "redis:alpine"
 ```
@@ -87,33 +171,6 @@ services:
 ```sh
 docker-compose up
 ```
-
-Alguns outros comandos:
-
-#### docker-compose ps
-
-```
-           Name                         Command               State           Ports         
---------------------------------------------------------------------------------------------
-baleia-compositora_redis_1   docker-entrypoint.sh redis ...   Up      6379/tcp              
-baleia-compositora_web_1     flask run                        Up      0.0.0.0:5000->5000/tcp
-```
-
-
-#### docker-compose stop
-
-Para o funcionamento dos containers, mas mantem o estado
-
-#### docker-compose down
-
-Interrompe os containers, e remove os volumes e as redes.
-
-#### docker-compose log
-
-```bash
-docker-compose log <nome-do-container>
-```
-
 
 
 ## Rede (exercicio)
@@ -133,7 +190,7 @@ Na documentação é possivel encontrar outros formatos de mapeamento aceitos: h
 version: '3'
 services:
   web:
-    image: servico-p:latest
+    image: servidor-web:latest
     ports:
       - "5050:5000"
   redis:
@@ -154,7 +211,7 @@ services:
   redis:
     image: "redis:alpine"
   web:
-    build: servico-p/.
+    build: servidor-web/.
     ports:
       - "5000:5000"
     environment:
@@ -176,7 +233,7 @@ services:
   redis:
     image: "redis:alpine"
   web:
-    build: servico-p/.
+    build: servidor-web/.
     depends_on:
         - 'redis'
     ports:
@@ -186,7 +243,7 @@ services:
         - REDIS_PORT=6379
 ```
 
-Um porém, só é garantido a ordem que os containers sobem, mas não que o serviço dentro dele esteja efetivemente rodando.
+Um porém, só é garantido a ordem que os conteiners sobem, mas não que o serviço dentro dele esteja efetivemente rodando.
 
 Mais informações em: https://docs.docker.com/compose/startup-order/
 
@@ -209,7 +266,7 @@ services:
     volumes:
         - arquivos:/files
   web:
-    build: servico-p/.
+    build: servidor-web/.
     depends_on:
         - 'redis'
     ports:
@@ -218,17 +275,17 @@ services:
         - REDIS_HOST=redis
         - REDIS_PORT=6379
     volumes:
-        - ./servico-p:/p
+        - ./servidor-web:/p
         - arquivos:/files
 volumes:
     arquivos:
 ```
 
-Nesse exemplo é feito o compartilhamento entre arquivos da maquina host da pasta `servico-p` com a pasta no container `/p`.
+Nesse exemplo é feito o compartilhamento entre arquivos da maquina host da pasta `servidor-web` com a pasta no container `/p`.
 
-E tambem foi criado um volume chamado `arquivos` para compartilhar arquivos entre os dois containers na pasta `/files`
+E tambem foi criado um volume chamado `arquivos` para compartilhar arquivos entre os dois conteiners na pasta `/files`
 
-Podemos confirmar entrando nos containers e criando arquivos lá
+Podemos confirmar entrando nos conteiners e criando arquivos lá
 
 ```bash
 docker-compose ps
