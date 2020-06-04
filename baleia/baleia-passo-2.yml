@@ -8,12 +8,18 @@ services:
 
   populate:
     image: alpine
+    volumes:
+      - "./data:/out"
+      - "./populate.sh:/populate.sh"
     entrypoint: /bin/sh -c
+    command: /populate.sh
 
   uploader:
     build: ./uploader
     image: baleia-uploader
     container_name: baleia-uploader
+    volumes:
+      - "./data:/out"
     command:
       - 'http://baleia-server:3000'
       - /out
@@ -24,6 +30,8 @@ services:
     build: ./downloader
     image: baleia-downloader
     container_name: baleia-downloader
+    volumes:
+      - "./data:/out"
     command:
       - 'http://baleia-server:3000'
       - nome
