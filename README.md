@@ -23,7 +23,15 @@ Mas antes, precisamos saber o que elas fazem!
 
 Então precisamos que o [server](/server) esteja disponível apra pedidos de ambos [uploader](/uploader) e [downloader](/downloader), e que estes dois possam ler e escrever arquivos em uma pasta comum. Você pode usar o script [populate.sh](/populate.sh) para popular esta pasta com um estado inicial válido.
 
+Este pequeno sistema pode ser considerado em funcionamento se:
+* a pasta [data](/data "se ela não existir, basta criá-la") contendo os arquivos `nome$i.json`, com `i` de 0 a 9
+* o conteúdo de cada arquivo for no formato `{"chave": N}`, com N crescendo o tempo todo!
+
 ## Resolver sem utilizar docker compose (exercicio)
+
+Consegue dockerizar as aplicações e coordená-las para rodar corretamente sem usar `docker-compose`?
+
+Acredite, é um exercício válido, e vai fazer você valorizar mais o que o compose tem a oferecer...
 
 ## Docker compose
 
