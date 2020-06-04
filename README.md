@@ -17,6 +17,10 @@ Mas antes, precisamos saber o que elas fazem!
   * <abbr title="num pedido do tipo PUT é esperado que se envie algum dado no corpo da mensagem">PUT</abbr> `http://<host>:3000/<chave>`: salva o conteúdo do corpo da mensagem, se for um json válido, sob o nome chave, para depois poder ser lido usando...
   * GET `http://<host>:3000/<chave>`: nos retorna um json válido que está salvo nessa chave
 
+* [downloader](/downloader): um script Python que ciclicamente faz pedidos GET no servidor, para pegar o conteudo nas chaves e baixar como arquivos json numa pasta
+
+* [uploader](/uploader): um binário, que varre os conteudos de certa paste, lendo arquivos json com certo nome, incrementa o valor numa certa chave desses objetos, e realiza pedidos PUT no servidor, atualizando o dado que stá lá
+
 ## Resolver sem utilizar docker compose (exercicio)
 
 ## Docker compose
