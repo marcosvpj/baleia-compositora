@@ -6,15 +6,9 @@ services:
     image: baleia-server
     container_name: baleia-server
 
-  populate:
-    image: alpine
-    volumes:
-      - "./data:/out"
-      - "./populate.sh:/populate.sh"
-    entrypoint: /bin/sh -c
-    command: /populate.sh
-
   uploader:
+    depends_on:
+      - 'server'
     build: ./uploader
     image: baleia-uploader
     container_name: baleia-uploader
@@ -27,11 +21,12 @@ services:
       - chave
 
   downloader:
+    depends_on:
+      - 'uploader'
     build: ./downloader
     image: baleia-downloader
     container_name: baleia-downloader
     volumes:
       - "./data:/out"
-    command:
-      - 'http://baleia-server:3000'
-      - nome
+    environment:
+      - NOME_BASE=nome

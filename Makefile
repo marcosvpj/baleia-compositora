@@ -15,15 +15,6 @@ ifeq ($(shell docker ps | grep baleia-server),)
 		baleia-server
 endif
 
-ping: baleia-server
-	while (! wget -q -O /dev/null localhost:3000/on ); do sleep 0.2; done
-
-put-%:
-	echo '{"chave": ${*}}' > data/nome${*}.json
-
-put: put-0 put-1 put-2 put-3 put-4 put-5 put-6 put-7 put-8 put-9
-
-
 build-uploader:
 	docker build -t baleia-uploader ./uploader
 
@@ -44,13 +35,14 @@ baleia-downloader: build-downloader
 ifeq ($(shell docker ps | grep baleia-downloader),)
 	docker run --rm -d \
 		-v $(PWD)/data:/out \
+		-e SERVIDOR='http://baleia-server:3000' \
+      	-e NOME_BASE=nome \
 		--network baleia-net \
 		--name baleia-downloader \
-		baleia-downloader \
-		'http://baleia-server:3000' nome
+		baleia-downloader
 endif
 
-start: put baleia-server baleia-uploader baleia-downloader
+start: baleia-net baleia-server baleia-uploader baleia-downloader
 	watch -d -n 0.2 'ls data | xargs -I % cat data/%'
 
 kill:

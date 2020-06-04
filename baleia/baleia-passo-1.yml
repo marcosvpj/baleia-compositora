@@ -6,10 +6,6 @@ services:
     image: baleia-server
     container_name: baleia-server
 
-  populate:
-    image: alpine
-    entrypoint: /bin/sh -c
-
   uploader:
     build: ./uploader
     image: baleia-uploader
@@ -24,6 +20,3 @@ services:
     build: ./downloader
     image: baleia-downloader
     container_name: baleia-downloader
-    command:
-      - 'http://baleia-server:3000'
-      - nome
