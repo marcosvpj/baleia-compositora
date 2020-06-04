@@ -13,18 +13,18 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build Server
-      run: docker build ./server
+      run: docker build ./baleia/server
 
   build-downloader:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Build Downloader
-      run: docker build ./downloader
+      run: docker build ./baleia/downloader
 
   build-uploader:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Build Uploader
-      run: docker build ./uploader
+      run: docker build ./baleia/uploader
