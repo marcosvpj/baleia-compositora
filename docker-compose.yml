@@ -5,7 +5,7 @@ services:
     volumes:
         - arquivos:/files
   web:
-    container_name: server-exemplo
+    image: servidor-web
     build: servidor-web/.
     depends_on:
         - 'redis'
