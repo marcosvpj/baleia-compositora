@@ -5,6 +5,7 @@ services:
     volumes:
         - arquivos:/files
   web:
+    container_name: baleia-server
     build: servidor-web/.
     depends_on:
         - 'redis'
