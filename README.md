@@ -205,7 +205,7 @@ Também temos o parametro `container_name` para definir um nome especifico para 
 version: '3'
 services:
   web:
-    container_name: baleia-server
+    container_name: servidor-web
     build: servidor-web/.
   redis:
     image: "redis:alpine"
@@ -220,6 +220,36 @@ docker-compose up
 
 ***MÃO NA MASSA!***
 
+
+### Variáveis de ambiente
+
+https://docs.docker.com/compose/environment-variables/
+
+Chave de configuração `environment`.
+Esse é apenas um dos modos de se fazer. Tambem é possivel utilizar as variaveis ja existentes na maquina host.
+Ou tambem definir elas em um arquivo.
+
+
+<details>
+<summary>Spoilers!</summary>
+
+```yml
+version: '3'
+services:
+  redis:
+    image: "redis:alpine"
+  web:
+    container_name: servidor-web
+    build: servidor-web/.
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+```
+
+</details>
+
+
+***MÃO NA MASSA!***
 
 ## Expondo portas
 
@@ -246,47 +276,21 @@ Na documentação é possivel encontrar outros formatos de mapeamento aceitos.
 ```yml
 version: '3'
 services:
-  web:
-    image: servidor-web:latest
-    ports:
-      - "5050:5000"
-  redis:
-    image: "redis:alpine"
-```
-</details>
-
-***MÃO NA MASSA!***
-
-### Variáveis de ambiente
-
-https://docs.docker.com/compose/environment-variables/
-
-Chave de configuração `environment`.
-Esse é apenas um dos modos de se fazer. Tambem é possivel utilizar as variaveis ja existentes na maquina host.
-Ou tambem definir elas em um arquivo.
-
-
-<details>
-<summary>Spoilers!</summary>
-
-```yml
-version: '3'
-services:
   redis:
     image: "redis:alpine"
   web:
+    image: servidor-web
     build: servidor-web/.
     ports:
-      - "5000:5000"
+      - "5050:5000"
     environment:
       - REDIS_HOST=redis
       - REDIS_PORT=6379
 ```
-
 </details>
 
-
 ***MÃO NA MASSA!***
+
 
 ### Ordem de execução
 
@@ -345,6 +349,7 @@ services:
     volumes:
         - arquivos:/files
   web:
+    image: servidor-web
     build: servidor-web/.
     depends_on:
         - 'redis'
@@ -372,7 +377,8 @@ Podemos confirmar entrando nos conteiners e criando arquivos lá
 docker-compose ps
 
 docker-compose exec web sh
-echo 'Helow' > /files/oie.txt
+ls /files/
+echo 'Hello' > /files/oie.txt
 cat /files/oie.txt
 exit
 
