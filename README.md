@@ -43,7 +43,7 @@ Consegue dockerizar as aplicações e coordená-las para rodar corretamente sem 
 
 Acredite, é um exercício válido, e vai fazer você valorizar mais o que o compose tem a oferecer...
 
-MÃO NA MASSA!
+***MÃO NA MASSA!***
 
 
 ## Docker compose
@@ -147,6 +147,8 @@ docker-compose --file baleia.yml down
 
 ### Diferentes versões
 
+https://docs.docker.com/compose/compose-file/compose-versioning/
+
 Arquivos do docker-compose possuem 3 diferentes versões, que não compativeis entre si.
 
 Se não for especificado a versão, utilizando o `version: 'x.x'` o compose considera que é a versão 1.
@@ -154,6 +156,8 @@ Na mesma linha, se for informado apenas o primeiro digito, o decimal sera consid
 
 
 ## docker-compose.yml
+
+https://docs.docker.com/compose/compose-file/
 
 ```yml
 version: '2.0'
@@ -171,19 +175,28 @@ services:
     image: redis
 volumes:
   logvolume01: {}
+networks:
+  new:
 ```
 
-Nesse link tem a lista de todas as configurações disponiveis separadas por versão:
-https://docs.docker.com/compose/compose-file/
+O arquivo de confiração tem 4 partes principais, `version`, `services`, `volumes` e `networks`.
 
+`services`: https://docs.docker.com/compose/compose-file/#service-configuration-reference
+
+`volumes`: https://docs.docker.com/compose/compose-file/#volume-configuration-reference
+
+`networks`: https://docs.docker.com/compose/compose-file/#network-configuration-reference
 
 ### Build de tudo de uma só vez
 
-[LINK DOC]
+https://docs.docker.com/compose/compose-file/#build
 
 Podemos fazer de dois modos.
 
 Utilizando uma imagem já existente com a opção `image` ou fazendo o build de um Dockerfile com a opção `build`.
+
+Também temos o parametro `container_name` para definir um nome especifico para cada container.
+É um parametro opcional, caso não seja informado sera gerado automaticamente.
 
 ```yml
 version: '3'
@@ -199,10 +212,12 @@ services:
 docker-compose up
 ```
 
-MÃO NA MASSA!
+***MÃO NA MASSA!***
 
 
-## Rede
+## Expondo portas
+
+https://docs.docker.com/compose/compose-file/#ports
 
 Por padrão compose cria uma rede entre todos os container.
 
@@ -212,9 +227,11 @@ Nessa rede cada container pode acessar os outros pelo nome definido do serviço,
 
 Para export as portas, podemos fazer utilizando a configuração `ports`, seguindo o padrão `[HOST:]CONTAINER`.
 
-[MELHORAR]
+`HOST`: Porta local. É opcional, caso não seja inserido, sera definido uma porta aleatória.
 
-Na documentação é possivel encontrar outros formatos de mapeamento aceitos: https://docs.docker.com/compose/compose-file/#ports
+`CONTAINER`: Porta do container a ser exposta.
+
+Na documentação é possivel encontrar outros formatos de mapeamento aceitos.
 
 
 ```yml
@@ -227,9 +244,8 @@ services:
   redis:
     image: "redis:alpine"
 ```
-[LINK DOCUMENTAÇÃO]
 
-MÃO NA MASSA!
+***MÃO NA MASSA!***
 
 ### Variáveis de ambiente
 
@@ -255,7 +271,7 @@ services:
 ```
 
 
-MÃO NA MASSA!
+***MÃO NA MASSA!***
 
 ### Ordem de execução
 
@@ -293,7 +309,9 @@ Temos duas opções de como definir os volumes, um modo resumido e um mais verbo
 Modo resumido segue o formatto `[SOURCE:]TARGET[:MODE]`
 
 `SOURCE` pode ser um local na maquina host ou um volume pré definido. Caso não seja informado sera criado um volume.
+
 `TARGET` é o cominho no container
+
 `MODE` é o modo de acesso, podendo ser `ro` para somente leitura ou `rw` leitura e escrita
 
 ```yml
@@ -339,7 +357,7 @@ cat /files/oie.txt
 exit
 ```
 
-MÃO NA MASSA!
+***MÃO NA MASSA!***
 
 
 ## Dúvidas
