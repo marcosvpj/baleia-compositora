@@ -140,9 +140,6 @@ Na mesma linha, se for informado apenas o primeiro digito, o decimal sera consid
 
 ## Criar arquivo configuração do docker-compose.yml
 
-<details>
-<summary>Spoilers!</summary>>
-
 ```yml
 version: '2.0'
 services:
@@ -161,7 +158,6 @@ volumes:
   logvolume01: {}
 ```
 
-</details>
 
 Nesse link tem a lista de todas as configurações disponiveis separadas por versão:
 https://docs.docker.com/compose/compose-file/
