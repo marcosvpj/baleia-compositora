@@ -1,0 +1,35 @@
+version: '3'
+services:
+
+  server:
+    ports:
+      - "3000:3000"
+    build: ./server
+    image: baleia-server
+    container_name: baleia-server
+
+  uploader:
+    depends_on:
+      - 'server'
+    build: ./uploader
+    image: baleia-uploader
+    container_name: baleia-uploader
+    volumes:
+      - "./data:/out"
+    command:
+      - 'http://baleia-server:3000'
+      - /out
+      - nome
+      - chave
+
+  downloader:
+    depends_on:
+      - 'uploader'
+    build: ./downloader
+    image: baleia-downloader
+    container_name: baleia-downloader
+    volumes:
+      - "./data:/out"
+    environment:
+      - 'SERVIDOR=http://baleia-server:3000'
+      - NOME_BASE=nome

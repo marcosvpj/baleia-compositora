@@ -1,0 +1,22 @@
+version: '3'
+services:
+
+  server:
+    build: ./server
+    image: baleia-server
+    container_name: baleia-server
+
+  uploader:
+    build: ./uploader
+    image: baleia-uploader
+    container_name: baleia-uploader
+    command:
+      - 'http://baleia-server:3000'
+      - /out
+      - nome
+      - chave
+
+  downloader:
+    build: ./downloader
+    image: baleia-downloader
+    container_name: baleia-downloader
