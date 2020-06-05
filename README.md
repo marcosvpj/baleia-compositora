@@ -36,11 +36,15 @@ Este pequeno sistema pode ser considerado em funcionamento se:
 * a pasta [data](/data "se ela não existir, basta criá-la") contendo os arquivos `nome$i.json`, com `i` de 0 a 9
 * o conteúdo de cada arquivo for no formato `{"chave": N}`, com N crescendo o tempo todo!
 
-## Resolver sem utilizar docker compose (exercicio)
+
+## Resolver sem utilizar docker compose
 
 Consegue dockerizar as aplicações e coordená-las para rodar corretamente sem usar `docker-compose`?
 
 Acredite, é um exercício válido, e vai fazer você valorizar mais o que o compose tem a oferecer...
+
+***MÃO NA MASSA!***
+
 
 ## Docker compose
 
@@ -117,6 +121,17 @@ Também aceita o parametro `-f` para ficar escutando o log em tempo real.
 docker-compose log -f web
 ```
 
+### Exec
+```bash
+docker-compose exec <servico> <comando>
+```
+
+Usado para executar comandos dentro dos conteiners.
+
+```bash
+docker-compose exec redis sh
+```
+
 ### Down
 ```bash
 docker-compose down
@@ -132,13 +147,17 @@ docker-compose --file baleia.yml down
 
 ### Diferentes versões
 
+https://docs.docker.com/compose/compose-file/compose-versioning/
+
 Arquivos do docker-compose possuem 3 diferentes versões, que não compativeis entre si.
 
 Se não for especificado a versão, utilizando o `version: 'x.x'` o compose considera que é a versão 1.
 Na mesma linha, se for informado apenas o primeiro digito, o decimal sera considerado 0. Assim `version: '2'` e `version: '2.1'` são equivalentes.
 
 
-## Criar arquivo configuração do docker-compose.yml
+## docker-compose.yml
+
+https://docs.docker.com/compose/compose-file/
 
 ```yml
 version: '2.0'
@@ -156,18 +175,28 @@ services:
     image: redis
 volumes:
   logvolume01: {}
+networks:
+  new:
 ```
 
+O arquivo de confiração tem 4 partes principais, `version`, `services`, `volumes` e `networks`.
 
-Nesse link tem a lista de todas as configurações disponiveis separadas por versão:
-https://docs.docker.com/compose/compose-file/
+`services`: https://docs.docker.com/compose/compose-file/#service-configuration-reference
 
+`volumes`: https://docs.docker.com/compose/compose-file/#volume-configuration-reference
 
-### Build de tudo de uma só vez (Exercicio)
+`networks`: https://docs.docker.com/compose/compose-file/#network-configuration-reference
+
+### Build de tudo de uma só vez
+
+https://docs.docker.com/compose/compose-file/#build
 
 Podemos fazer de dois modos.
 
 Utilizando uma imagem já existente com a opção `image` ou fazendo o build de um Dockerfile com a opção `build`.
+
+Também temos o parametro `container_name` para definir um nome especifico para cada container.
+É um parametro opcional, caso não seja informado sera gerado automaticamente.
 
 <details>
 <summary>Spoilers!</summary>
@@ -176,6 +205,7 @@ Utilizando uma imagem já existente com a opção `image` ou fazendo o build de 
 version: '3'
 services:
   web:
+    container_name: baleia-server
     build: servidor-web/.
   redis:
     image: "redis:alpine"
@@ -188,8 +218,12 @@ services:
 docker-compose up
 ```
 
+***MÃO NA MASSA!***
 
-## Rede (exercicio)
+
+## Expondo portas
+
+https://docs.docker.com/compose/compose-file/#ports
 
 Por padrão compose cria uma rede entre todos os container.
 
@@ -197,9 +231,13 @@ O nome dessa rede é definido pelo nome da pasta seguido de `_default`, no nosso
 
 Nessa rede cada container pode acessar os outros pelo nome definido do serviço, assim teremos os hosts `web` e `redis`
 
-Para export as portas, podemos fazer utilizando a configuração `ports`, seguindo o padrão `HOST:CONTAINER`.
+Para export as portas, podemos fazer utilizando a configuração `ports`, seguindo o padrão `[HOST:]CONTAINER`.
 
-Na documentação é possivel encontrar outros formatos de mapeamento aceitos: https://docs.docker.com/compose/compose-file/#ports
+`HOST`: Porta local. É opcional, caso não seja inserido, sera definido uma porta aleatória.
+
+`CONTAINER`: Porta do container a ser exposta.
+
+Na documentação é possivel encontrar outros formatos de mapeamento aceitos.
 
 
 <details>
@@ -215,10 +253,13 @@ services:
   redis:
     image: "redis:alpine"
 ```
-
 </details>
 
-### Variáveis de ambiente (exercicio)
+***MÃO NA MASSA!***
+
+### Variáveis de ambiente
+
+https://docs.docker.com/compose/environment-variables/
 
 Chave de configuração `environment`.
 Esse é apenas um dos modos de se fazer. Tambem é possivel utilizar as variaveis ja existentes na maquina host.
@@ -244,10 +285,10 @@ services:
 
 </details>
 
-https://docs.docker.com/compose/environment-variables/
 
+***MÃO NA MASSA!***
 
-### Ordem de execução (exercicio)
+### Ordem de execução
 
 Em alguns casos com varios container vamos precisar que eles iniciem em uma determinada ordem.
 Para garatir isso temos a keyword `depends_on`
@@ -277,7 +318,10 @@ Um porém, só é garantido a ordem que os conteiners sobem, mas não que o serv
 
 Mais informações em: https://docs.docker.com/compose/startup-order/
 
+
 ## Compartilhamento de volume
+
+https://docs.docker.com/compose/compose-file/#volumes
 
 Dentro de um serviço podemos definir os volumes que o serviço vai tulizar.
 Temos duas opções de como definir os volumes, um modo resumido e um mais verboso.
@@ -285,7 +329,9 @@ Temos duas opções de como definir os volumes, um modo resumido e um mais verbo
 Modo resumido segue o formatto `[SOURCE:]TARGET[:MODE]`
 
 `SOURCE` pode ser um local na maquina host ou um volume pré definido. Caso não seja informado sera criado um volume.
+
 `TARGET` é o cominho no container
+
 `MODE` é o modo de acesso, podendo ser `ro` para somente leitura ou `rw` leitura e escrita
 
 <details>
@@ -336,7 +382,9 @@ cat /files/oie.txt
 exit
 ```
 
-https://docs.docker.com/compose/compose-file/#volumes
+***MÃO NA MASSA!***
 
-### container com container (exercicio)
-### host com container (exercicio)
+
+## Dúvidas
+
+Sinta-se a vontade para abrir issues e submeter pull requests.
