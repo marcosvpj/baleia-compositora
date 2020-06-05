@@ -141,7 +141,7 @@ Na mesma linha, se for informado apenas o primeiro digito, o decimal sera consid
 ## Criar arquivo configuração do docker-compose.yml
 
 <details>
-<summary>Spoilers!</summary>
+<summary>Spoilers!</summary>>
 
 ```yml
 version: '2.0'
@@ -174,9 +174,9 @@ Podemos fazer de dois modos.
 Utilizando uma imagem já existente com a opção `image` ou fazendo o build de um Dockerfile com a opção `build`.
 
 <details>
-<summary>Spoilers!</summary
+<summary>Spoilers!</summary>
 
-```yml
+```yaml
 version: '3'
 services:
   web:
@@ -186,6 +186,7 @@ services:
 ```
 
 </details>
+
 
 ```sh
 docker-compose up
@@ -206,7 +207,7 @@ Na documentação é possivel encontrar outros formatos de mapeamento aceitos: h
 
 
 <details>
-<summary>Spoilers!</summary
+<summary>Spoilers!</summary>
 
 ```yml
 version: '3'
@@ -218,6 +219,7 @@ services:
   redis:
     image: "redis:alpine"
 ```
+
 </details>
 
 ### Variáveis de ambiente (exercicio)
@@ -228,7 +230,7 @@ Ou tambem definir elas em um arquivo.
 
 
 <details>
-<summary>Spoilers!</summary
+<summary>Spoilers!</summary>
 
 ```yml
 version: '3'
@@ -255,7 +257,7 @@ Em alguns casos com varios container vamos precisar que eles iniciem em uma dete
 Para garatir isso temos a keyword `depends_on`
 
 <details>
-<summary>Spoilers!</summary
+<summary>Spoilers!</summary>
 
 ```yml
 version: '3'
@@ -291,7 +293,7 @@ Modo resumido segue o formatto `[SOURCE:]TARGET[:MODE]`
 `MODE` é o modo de acesso, podendo ser `ro` para somente leitura ou `rw` leitura e escrita
 
 <details>
-<summary>Spoilers!</summary
+<summary>Spoilers!</summary>
 
 ```yml
 version: '3'
