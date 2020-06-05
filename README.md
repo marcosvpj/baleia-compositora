@@ -158,6 +158,7 @@ volumes:
   logvolume01: {}
 ```
 
+
 Nesse link tem a lista de todas as configurações disponiveis separadas por versão:
 https://docs.docker.com/compose/compose-file/
 
@@ -168,7 +169,10 @@ Podemos fazer de dois modos.
 
 Utilizando uma imagem já existente com a opção `image` ou fazendo o build de um Dockerfile com a opção `build`.
 
-```yml
+<details>
+<summary>Spoilers!</summary>
+
+```yaml
 version: '3'
 services:
   web:
@@ -176,6 +180,9 @@ services:
   redis:
     image: "redis:alpine"
 ```
+
+</details>
+
 
 ```sh
 docker-compose up
@@ -195,6 +202,9 @@ Para export as portas, podemos fazer utilizando a configuração `ports`, seguin
 Na documentação é possivel encontrar outros formatos de mapeamento aceitos: https://docs.docker.com/compose/compose-file/#ports
 
 
+<details>
+<summary>Spoilers!</summary>
+
 ```yml
 version: '3'
 services:
@@ -206,6 +216,7 @@ services:
     image: "redis:alpine"
 ```
 
+</details>
 
 ### Variáveis de ambiente (exercicio)
 
@@ -213,6 +224,9 @@ Chave de configuração `environment`.
 Esse é apenas um dos modos de se fazer. Tambem é possivel utilizar as variaveis ja existentes na maquina host.
 Ou tambem definir elas em um arquivo.
 
+
+<details>
+<summary>Spoilers!</summary>
 
 ```yml
 version: '3'
@@ -228,6 +242,8 @@ services:
       - REDIS_PORT=6379
 ```
 
+</details>
+
 https://docs.docker.com/compose/environment-variables/
 
 
@@ -235,6 +251,9 @@ https://docs.docker.com/compose/environment-variables/
 
 Em alguns casos com varios container vamos precisar que eles iniciem em uma determinada ordem.
 Para garatir isso temos a keyword `depends_on`
+
+<details>
+<summary>Spoilers!</summary>
 
 ```yml
 version: '3'
@@ -252,6 +271,8 @@ services:
         - REDIS_PORT=6379
 ```
 
+</details>
+
 Um porém, só é garantido a ordem que os conteiners sobem, mas não que o serviço dentro dele esteja efetivemente rodando.
 
 Mais informações em: https://docs.docker.com/compose/startup-order/
@@ -266,6 +287,9 @@ Modo resumido segue o formatto `[SOURCE:]TARGET[:MODE]`
 `SOURCE` pode ser um local na maquina host ou um volume pré definido. Caso não seja informado sera criado um volume.
 `TARGET` é o cominho no container
 `MODE` é o modo de acesso, podendo ser `ro` para somente leitura ou `rw` leitura e escrita
+
+<details>
+<summary>Spoilers!</summary>
 
 ```yml
 version: '3'
@@ -289,6 +313,8 @@ services:
 volumes:
     arquivos:
 ```
+
+</details>
 
 Nesse exemplo é feito o compartilhamento entre arquivos da maquina host da pasta `servidor-web` com a pasta no container `/p`.
 
