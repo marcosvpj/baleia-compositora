@@ -103,7 +103,7 @@ docker-compose --file baleia.yml start
 
 ### Log
 ```bash
-docker-compose log
+docker-compose logs
 ```
 
 Com ele podemos ver os logs dos conteiners ativos.
@@ -112,13 +112,13 @@ Com ele podemos ver os logs dos conteiners ativos.
 
 
 ```bash
-docker-compose log web
+docker-compose logs web
 ```
 
 Também aceita o parametro `-f` para ficar escutando o log em tempo real.
 
 ```bash
-docker-compose log -f web
+docker-compose logs -f web
 ```
 
 ### Exec
